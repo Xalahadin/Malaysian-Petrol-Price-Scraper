@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import bs4, requests, re, os, datetime, pyperclip, webbrowser
+=======
+import bs4, requests, re, os, datetime
+>>>>>>> 1dd2703397cdfec140d2adc45f65a5ecb747d2ea
 
 def outputPetrolPrice(Url): #Outputs the Petrol Price web element including price, changetype and change amount to each petrol's dictionaries
     global soup
@@ -53,16 +57,31 @@ Diesel_dict = {'type':'Diesel','row':'5'}
 #Data List Used
 Petrol_dict = {'Ron95':Ron95_dict,'Ron97':Ron97_dict,'Diesel':Diesel_dict}
 
+<<<<<<< HEAD
 
 #Code Starts Here
 price = outputPetrolPrice('https://www.petrolpricemalaysia.my/')
 print (Petrol_dict)
+=======
+
+#Code Starts Here
+price = outputPetrolPrice('https://www.petrolpricemalaysia.my/')
+print (Petrol_dict)
+
+# Gets the date for Wednesday's Price Change, assuming program is ran on the same week
+today = datetime.date.today()
+thisThur = today + datetime.timedelta(days=-today.weekday()+3, weeks=0)
+nextWed = today + datetime.timedelta(days=-today.weekday()+2, weeks=1)
+
+#Output XML:
+>>>>>>> 1dd2703397cdfec140d2adc45f65a5ecb747d2ea
 
 # Gets the date for Thursday's Price Change, assuming program is executed on the same week
 today = datetime.date.today()
 thisThur = today + datetime.timedelta(days=-today.weekday()+3, weeks=0)
 nextWed = today + datetime.timedelta(days=-today.weekday()+2, weeks=1)
 
+<<<<<<< HEAD
 #Output XML:
 
 XMLFile = open(os.path.join(os.getcwd(),'XML.xml'),'w')
@@ -91,3 +110,20 @@ https://play.google.com/store/apps/details?id=alexanderzotov.petrolmalaysia&hl=e
 
 print(fbpost)
 pyperclip.copy(fbpost)
+=======
+#Output Facebook Post:
+
+fbpost='''
+
+For the period, ''' + thisThur.strftime("%d %B %Y")  + ' (Thur) to ' + nextWed.strftime("%d %B %Y") + ''' (next Wed), new prices & changes (in RM):
+RON 95 : RM'''+ Ron95_dict['currentprice']+''' per litre ('''+Ron95_dict['changeword']+''', '''+Ron95_dict['changesign']+Ron95_dict['changeamount']+''')
+RON 97 : RM'''+ Ron97_dict['currentprice']+''' per litre ('''+Ron97_dict['changeword']+''', '''+Ron97_dict['changesign']+Ron97_dict['changeamount']+''')
+Diesel, Euro 2M : RM'''+ Diesel_dict['currentprice']+''' per litre ('''+Diesel_dict['changeword']+''', '''+Diesel_dict['changesign']+Diesel_dict['changeamount']+''')
+
+For current pricing, please download our app at: 
+https://play.google.com/store/apps/details?id=alexanderzotov.petrolmalaysia&hl=en'''
+
+print(fbpost)
+
+
+>>>>>>> 1dd2703397cdfec140d2adc45f65a5ecb747d2ea
