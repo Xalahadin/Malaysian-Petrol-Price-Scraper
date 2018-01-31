@@ -1,4 +1,4 @@
-import bs4, requests, re, os
+import bs4, requests, re, os, datetime
 
 def outputPetrolPrice(Url): #Outputs the Petrol Price web element including price, changetype and change amount to each petrol's dictionaries
     global soup
@@ -58,15 +58,19 @@ Petrol_dict = {'Ron95':Ron95_dict,'Ron97':Ron97_dict,'Diesel':Diesel_dict}
 price = outputPetrolPrice('https://www.petrolpricemalaysia.my/')
 print (Petrol_dict)
 
+# Gets the date for Wednesday's Price Change, assuming program is ran on the same week
+today = datetime.date.today()
+thisThur = today + datetime.timedelta(days=-today.weekday()+3, weeks=0)
+nextWed = today + datetime.timedelta(days=-today.weekday()+2, weeks=1)
+
 #Output XML:
-
-
-
 
 
 #Output Facebook Post:
 
-fbpost='''For period (year), new prices & changes (in RM):
+fbpost='''
+
+For the period, ''' + thisThur.strftime("%d %B %Y")  + ' (Thur) to ' + nextWed.strftime("%d %B %Y") + ''' (next Wed), new prices & changes (in RM):
 RON 95 : RM'''+ Ron95_dict['currentprice']+''' per litre ('''+Ron95_dict['changeword']+''', '''+Ron95_dict['changesign']+Ron95_dict['changeamount']+''')
 RON 97 : RM'''+ Ron97_dict['currentprice']+''' per litre ('''+Ron97_dict['changeword']+''', '''+Ron97_dict['changesign']+Ron97_dict['changeamount']+''')
 Diesel, Euro 2M : RM'''+ Diesel_dict['currentprice']+''' per litre ('''+Diesel_dict['changeword']+''', '''+Diesel_dict['changesign']+Diesel_dict['changeamount']+''')
